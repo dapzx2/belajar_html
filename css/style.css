@@ -720,6 +720,42 @@ body.state-b .cyber-content {
     text-align: center;
     padding: 60px 20px 40px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Profile Photo Styling */
+.profile-photo-container {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-neon);
+    box-shadow: 0 0 20px var(--accent-neon), 0 0 40px rgba(0, 255, 204, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: profile-glow 3s ease-in-out infinite alternate;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--accent-neon), 0 0 60px rgba(0, 255, 204, 0.5);
+}
+
+@keyframes profile-glow {
+    0% {
+        box-shadow: 0 0 20px var(--accent-neon), 0 0 40px rgba(0, 255, 204, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 30px var(--accent-neon), 0 0 60px rgba(0, 255, 204, 0.5), 0 0 80px rgba(0, 255, 204, 0.2);
+    }
 }
 
 .cyber-header::before {
@@ -985,8 +1021,6 @@ body.state-b .cyber-content {
     width: 24px;
     height: 24px;
     object-fit: contain;
-    vertical-align: middle;
-    margin-right: 8px;
     filter: brightness(0) invert(0.5);
     transition: filter 0.3s ease;
 }
@@ -1212,6 +1246,9 @@ body.state-b .skill-progress {
     border: 1px solid #333;
     border-radius: 25px;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .contact-link:hover {
@@ -1245,17 +1282,29 @@ body.state-b .skill-progress {
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .cyber-header {
-        padding: 50px 20px 40px;
+        padding: 40px 15px 30px;
+    }
+
+    /* Responsive Profile Photo */
+    .profile-photo-container {
+        margin-bottom: 15px;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+        border-width: 2px;
     }
 
     .cyber-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
         letter-spacing: 2px;
+        margin-bottom: 8px;
     }
 
     .cyber-header .tagline {
-        font-size: 13px;
-        letter-spacing: 3px;
+        font-size: 12px;
+        letter-spacing: 2px;
     }
 
     .typing-effect {

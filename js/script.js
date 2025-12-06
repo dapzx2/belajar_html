@@ -459,31 +459,72 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => observer.observe(el));
     scrambleElements.forEach(el => observer.observe(el)); // Add scramble targets to observer
 
-    // 8. Touch Highlight Effect (Mobile Only) - Simple glow, no 3D tilt
+    // 8. Touch 3D Tilt Effect (Mobile Only) - With controlled sensitivity
     if (!isDesktop) {
         const touchCards = document.querySelectorAll('.project-card, .skill-item');
 
         touchCards.forEach(card => {
-            card.addEventListener('touchstart', () => {
+            let startX = 0, startY = 0;
+            let isDragging = false;
+            let hasMoved = false;
+            const DRAG_THRESHOLD = 10; // Minimum pixels to drag before 3D tilt activates
+
+            card.addEventListener('touchstart', (e) => {
                 if (!document.body.classList.contains('state-b')) return;
-                card.style.transition = 'all 0.2s ease-out';
+                const touch = e.touches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                isDragging = true;
+                hasMoved = false;
+
+                // Immediate visual feedback
+                card.style.transition = 'border-color 0.2s, box-shadow 0.2s';
                 card.style.borderColor = 'var(--accent-neon)';
-                card.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.4), inset 0 0 10px rgba(0, 255, 204, 0.1)';
-                card.style.transform = 'scale(0.98)'; // Subtle press effect
+                card.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.4)';
+            }, { passive: true });
+
+            card.addEventListener('touchmove', (e) => {
+                if (!isDragging || !document.body.classList.contains('state-b')) return;
+
+                const touch = e.touches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+
+                // Only start 3D tilt after minimum drag distance
+                if (!hasMoved && (Math.abs(deltaX) > DRAG_THRESHOLD || Math.abs(deltaY) > DRAG_THRESHOLD)) {
+                    hasMoved = true;
+                    card.style.transition = 'transform 0.1s ease-out';
+                }
+
+                if (hasMoved) {
+                    const rect = card.getBoundingClientRect();
+                    const x = touch.clientX - rect.left;
+                    const y = touch.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Lower sensitivity (5deg max) for mobile
+                    const rotateX = Math.max(-5, Math.min(5, ((y - centerY) / centerY) * -5));
+                    const rotateY = Math.max(-5, Math.min(5, ((x - centerX) / centerX) * 5));
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                }
             }, { passive: true });
 
             card.addEventListener('touchend', () => {
-                if (!document.body.classList.contains('state-b')) return;
+                isDragging = false;
                 card.style.transition = 'all 0.3s ease-out';
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
                 card.style.borderColor = '#222';
                 card.style.boxShadow = 'none';
-                card.style.transform = 'scale(1)';
             }, { passive: true });
 
             card.addEventListener('touchcancel', () => {
+                isDragging = false;
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
                 card.style.borderColor = '#222';
                 card.style.boxShadow = 'none';
-                card.style.transform = 'scale(1)';
             }, { passive: true });
         });
     }
