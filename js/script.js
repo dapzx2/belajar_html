@@ -459,44 +459,31 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => observer.observe(el));
     scrambleElements.forEach(el => observer.observe(el)); // Add scramble targets to observer
 
-    // 8. Touch Tilt Effect (Mobile Only)
+    // 8. Touch Highlight Effect (Mobile Only) - Simple glow, no 3D tilt
     if (!isDesktop) {
         const touchCards = document.querySelectorAll('.project-card, .skill-item');
 
         touchCards.forEach(card => {
-            let isTouching = false;
-
-            card.addEventListener('touchstart', (e) => {
+            card.addEventListener('touchstart', () => {
                 if (!document.body.classList.contains('state-b')) return;
-                isTouching = true;
-                card.style.transition = 'transform 0.1s ease-out';
+                card.style.transition = 'all 0.2s ease-out';
                 card.style.borderColor = 'var(--accent-neon)';
-                card.style.boxShadow = '0 10px 30px rgba(0, 255, 204, 0.3)';
-            }, { passive: true });
-
-            card.addEventListener('touchmove', (e) => {
-                if (!isTouching || !document.body.classList.contains('state-b')) return;
-
-                const touch = e.touches[0];
-                const rect = card.getBoundingClientRect();
-                const x = touch.clientX - rect.left;
-                const y = touch.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const rotateX = ((y - centerY) / centerY) * -8;
-                const rotateY = ((x - centerX) / centerX) * 8;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                card.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.4), inset 0 0 10px rgba(0, 255, 204, 0.1)';
+                card.style.transform = 'scale(0.98)'; // Subtle press effect
             }, { passive: true });
 
             card.addEventListener('touchend', () => {
-                isTouching = false;
-                card.style.transition = 'transform 0.3s ease-out, border-color 0.3s, box-shadow 0.3s';
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                if (!document.body.classList.contains('state-b')) return;
+                card.style.transition = 'all 0.3s ease-out';
                 card.style.borderColor = '#222';
                 card.style.boxShadow = 'none';
+                card.style.transform = 'scale(1)';
+            }, { passive: true });
+
+            card.addEventListener('touchcancel', () => {
+                card.style.borderColor = '#222';
+                card.style.boxShadow = 'none';
+                card.style.transform = 'scale(1)';
             }, { passive: true });
         });
     }
