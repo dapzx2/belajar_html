@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dava Ulus - Belajar HTML</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/retro.css">
+    <link rel="stylesheet" href="css/cyberpunk.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body class="state-a">
+    <div class="glitch-overlay">
+        <div class="glitch-terminal">
+            <div class="glitch-terminal-header">
+                <div class="terminal-btn red"></div>
+                <div class="terminal-btn yellow"></div>
+                <div class="terminal-btn green"></div>
+                <span class="glitch-terminal-title">root@system:~</span>
+            </div>
+            <div class="glitch-terminal-body">
+                <p class="glitch-line"><span class="prompt">$</span> <span class="typing"
+                        data-text="./override.sh"></span></p>
+                <p class="glitch-line"><span class="output">→ Bypassing security...</span></p>
+                <p class="glitch-line"><span class="output">→ Injecting payload...</span></p>
+                <p class="glitch-line"><span class="output">→ Access granted</span></p>
+                <p class="glitch-line success"><span class="output">[+] SYSTEM COMPROMISED</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="retro-content">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
+            --- Ini adalah contoh teks yang bergerak dari kanan ke kiri menggunakan tag marquee ---
+        </marquee>
+
+        <div class="construction-banner"></div>
+
+        <h1>Nama: Dava Ulus</h1>
+        <hr>
+
+        <h2>Belajar Paragraph (p)</h2>
+        <div class="intro-text">
+            <p>Belajar membuat website dengan HTML.</p>
+            <p>Ini adalah contoh paragraf kedua. Paragraf digunakan untuk menampilkan teks.</p>
+        </div>
+
+        <h2>Belajar Table</h2>
+        <table class="ugly-table">
+            <tr>
+                <th>No</th>
+                <th>Belajar</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>HTML</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>CSS</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>JavaScript</td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <h2>Belajar Button</h2>
+        <p style="text-align: center; font-size: clamp(12px, 3.5vw, 14px); color: #555; margin-bottom: 15px;">
+            Belajar membuat button:
+        </p>
+        <button class="retro-btn" onclick="triggerTransformation()">
+            [ Ubah Tampilan ]
+        </button>
+
+        <hr>
+
+        <h2>Belajar Progress Bar</h2>
+        <div class="progress-item">
+            <span>HTML:</span>
+            <progress value="80" max="100">80%</progress>
+            <span>80%</span>
+        </div>
+        <div class="progress-item">
+            <span>CSS:</span>
+            <progress value="50" max="100">50%</progress>
+            <span>50%</span>
+        </div>
+        <div class="progress-item">
+            <span>JavaScript:</span>
+            <progress value="30" max="100">30%</progress>
+            <span>30%</span>
+        </div>
+
+        <hr>
+
+        <h2>Belajar Dropdown (details/summary)</h2>
+        <details>
+            <summary><strong>Klik untuk membuka dropdown pertama</strong></summary>
+            <p>Ini adalah konten yang tersembunyi. Elemen details dan summary membuat dropdown tanpa JavaScript!</p>
+        </details>
+        <details>
+            <summary><strong>Klik untuk membuka dropdown kedua</strong></summary>
+            <p>Dropdown ini sangat berguna untuk FAQ, menu, atau konten yang ingin disembunyikan.</p>
+        </details>
+        <details>
+            <summary><strong>Klik untuk membuka dropdown ketiga</strong></summary>
+            <p>Coba klik lagi untuk menutup dropdown ini. Keren kan?</p>
+        </details>
+
+        <h2>Belajar Footer</h2>
+        <footer
+            style="text-align: center; padding: 15px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px;">
+            <p style="font-size: 12px; color: #666; margin: 0;">
+                Ini adalah contoh footer menggunakan tag &lt;footer&gt;
+            </p>
+            <p style="font-size: 11px; color: #999; margin-top: 8px;">
+                © 2025 Dava Ulus
+            </p>
+        </footer>
+    </div>
+
+    <div class="cyber-content">
+        <canvas id="matrix-rain"></canvas>
+
+        <header class="cyber-header">
+            <h1>DAVA ULUS</h1>
+            <p class="tagline">
+                <span class="typing-effect" id="typewriter"></span>
+            </p>
+        </header>
+
+        <section class="terminal-section">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <span class="terminal-title">dava@portfolio:~</span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="prompt">$</span> <span class="command">whoami</span></p>
+                    <p class="output">→ Dava Ulus | Fullstack Developer</p>
+                    <br>
+                    <p><span class="prompt">$</span> <span class="command">cat about.txt</span></p>
+                    <p class="output">→ Mahasiswa yang passionate dalam teknologi.</p>
+                    <p class="output">→ Fokus: Machine Learning, Game Development, Web Dev</p>
+                    <p class="output">→ Motto: "Underpromise, Overdeliver"</p>
+                    <br>
+                    <p><span class="prompt">$</span> <span class="command">ls ./skills</span></p>
+                    <p class="output">→ Python | JavaScript | C# | Unity | React | TensorFlow</p>
+                    <br>
+                    <p><span class="prompt">$</span> <span class="command"></span><span class="blink">▊</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-section certificates-section">
+            <h2 class="section-title">CERTIFICATES</h2>
+
+            <div class="cert-category">
+                <h3 class="cert-category-title">Web Development & Software Engineering</h3>
+                <div class="projects-grid">
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/digitalent.png" alt="Digitalent" class="cert-logo">
+                        </div>
+                        <div class="project-category">VSGA - Digital Talent Scholarship</div>
+                        <h3 class="project-title">Junior Web Developer</h3>
+                        <div class="cert-meta">
+                            <span class="cert-publisher"><span class="meta-label">Penerbit:</span> Kementerian
+                                Komunikasi dan Digital (KOMDIGI)</span>
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 24 Jam Pelatihan</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Kompetensi Teknis:</p>
+                            <ul class="curriculum-list">
+                                <li>Implementasi User Interface</li>
+                                <li>Pemrograman Terstruktur</li>
+                                <li>Manajemen Aset</li>
+                                <li>Organisasi Kode</li>
+                                <li>Penggunaan Library</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/dicoding.png" alt="Dicoding" class="cert-logo"></div>
+                        <div class="project-category">Dicoding Indonesia</div>
+                        <h3 class="project-title">Belajar Dasar Pemrograman JavaScript</h3>
+                        <div class="cert-meta">
+                            <span class="cert-publisher"><span class="meta-label">Penerbit:</span> Validasi AWS</span>
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 46 Jam</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>Runtime Environment (Node.js, Bun, Deno)</li>
+                                <li>Fundamental Syntax & Struktur Data</li>
+                                <li>OOP & Functional Programming</li>
+                                <li>Asynchronous Process</li>
+                                <li>Code Quality & Testing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/dicoding.png" alt="Dicoding" class="cert-logo"></div>
+                        <div class="project-category">Dicoding Indonesia</div>
+                        <h3 class="project-title">Belajar Membuat Front-End Web untuk Pemula</h3>
+                        <div class="cert-meta">
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 45 Jam</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>DOM & BOM Manipulation</li>
+                                <li>Event Handling</li>
+                                <li>Web Storage (localStorage/sessionStorage)</li>
+                                <li>Proyek CRUD Aplikasi Web</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/dicoding.png" alt="Dicoding" class="cert-logo"></div>
+                        <div class="project-category">Dicoding Indonesia (Google Partner)</div>
+                        <h3 class="project-title">Belajar Dasar Pemrograman Web</h3>
+                        <div class="cert-meta">
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 41 Jam</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>HTML5 Mendalam (Semantic Elements)</li>
+                                <li>CSS3 Styling & Box Model</li>
+                                <li>Modern Layout (Flexbox)</li>
+                                <li>Responsive Design (Media Query)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/RevoU.png" alt="RevoU" class="cert-logo"></div>
+                        <div class="project-category">RevoU</div>
+                        <h3 class="project-title">Intro to Software Engineering</h3>
+                        <div class="cert-meta">
+                            <span class="cert-publisher"><span class="meta-label">Penerbit:</span> Certified Online
+                                Course</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Fokus:</p>
+                            <ul class="curriculum-list">
+                                <li>Fondasi Teknik Perangkat Lunak</li>
+                                <li>Peran Software Engineer dalam Industri</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-category">
+                <h3 class="cert-category-title">Cybersecurity & Artificial Intelligence</h3>
+                <div class="projects-grid">
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/digitalent.png" alt="Digitalent" class="cert-logo">
+                        </div>
+                        <div class="project-category">FGA - Digital Talent Scholarship</div>
+                        <h3 class="project-title">Fundamental Cybersecurity</h3>
+                        <div class="cert-meta">
+                            <span class="cert-publisher"><span class="meta-label">Penerbit:</span> Kementerian
+                                Komunikasi dan Digital (KOMDIGI)</span>
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 10 Jam Pelatihan</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>Landscape Keamanan Siber</li>
+                                <li>Threat Intelligence</li>
+                                <li>Strategi Proteksi Sistem</li>
+                                <li>Tools & Bahasa Pemrograman Keamanan</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/dicoding.png" alt="Dicoding" class="cert-logo"></div>
+                        <div class="project-category">Dicoding Indonesia</div>
+                        <h3 class="project-title">Belajar Dasar AI</h3>
+                        <div class="cert-meta">
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 10 Jam</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>Konsep Dasar Artificial Intelligence</li>
+                                <li>Data Science Basics</li>
+                                <li>Machine Learning Fundamentals</li>
+                                <li>Deep Learning Introduction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-category">
+                <h3 class="cert-category-title">Digital Business</h3>
+                <div class="projects-grid">
+                    <div class="project-card cert-card">
+                        <div class="project-icon"><img src="images/digitalent.png" alt="Digitalent" class="cert-logo">
+                        </div>
+                        <div class="project-category">DEA - Digital Entrepreneurship Academy</div>
+                        <h3 class="project-title">Pemasaran Digital Dasar</h3>
+                        <div class="cert-meta">
+                            <span class="cert-publisher"><span class="meta-label">Penerbit:</span> Kementerian
+                                Komunikasi dan Digital (KOMDIGI)</span>
+                            <span class="cert-duration"><span class="meta-label">Durasi:</span> 13 Jam Pelatihan</span>
+                        </div>
+                        <div class="cert-curriculum">
+                            <p class="curriculum-title">Materi & Kurikulum:</p>
+                            <ul class="curriculum-list">
+                                <li>Business Planning (Canvas & Profit Plan)</li>
+                                <li>Digital Transformation</li>
+                                <li>Content Marketing</li>
+                                <li>Digital Marketing Strategy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <h2 class="section-title">SKILLS</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-name"><span>HTML5 / CSS3</span><span>90%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>JavaScript</span><span>85%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 85%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Front-End Development</span><span>85%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 85%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Node.js / Runtime</span><span>75%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 75%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Cybersecurity Basics</span><span>70%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>AI / Machine Learning</span><span>65%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 65%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Digital Marketing</span><span>70%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 70%;"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Software Engineering</span><span>75%</span></div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="--progress: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2>// GET IN TOUCH</h2>
+            <div class="contact-links">
+                <a href="mailto:davaulus52@gmail.com" class="contact-link"><img src="images/gmail.png" alt="Gmail"
+                        class="contact-icon"> Email</a>
+                <a href="https://www.linkedin.com/in/davaulus" target="_blank" class="contact-link"><img
+                        src="images/linked_in.png" alt="LinkedIn" class="contact-icon">
+                    LinkedIn</a>
+                <a href="https://github.com/dapzx2/" target="_blank" class="contact-link"><img
+                        src="https://logo.clearbit.com/github.com" alt="GitHub" class="contact-icon"> GitHub</a>
+            </div>
+        </section>
+
+        <footer class="cyber-footer">
+            <p>&lt;/&gt; Crafted by <strong>Dava Ulus</strong></p>
+            <p style="margin-top: 10px; font-size: 10px;">"Code is poetry, bugs are just typos."</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

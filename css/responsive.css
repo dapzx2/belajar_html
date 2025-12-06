@@ -1,0 +1,148 @@
+/* RESPONSIVE DESIGN */
+
+/* Hide default cursor only on desktop/hover supported devices */
+@media (hover: hover) and (pointer: fine) {
+
+    body.state-b,
+    body.state-b * {
+        cursor: none !important;
+    }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 768px) {
+    .cyber-header {
+        padding: 40px 15px 30px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+
+    .certificates-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cert-card {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .cert-logo-container {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cert-title {
+        font-size: 15px;
+    }
+
+    .cert-publisher,
+    .cert-duration {
+        font-size: 13px !important;
+    }
+
+    .cert-curriculum {
+        margin-top: 10px;
+    }
+
+    .curriculum-list li {
+        font-size: 14px !important;
+        padding-left: 16px;
+        margin-bottom: 6px;
+    }
+
+    .curriculum-list li::before {
+        top: 6px !important;
+    }
+
+    .terminal-section {
+        margin: 0 10px 40px;
+    }
+
+    .terminal-body {
+        font-size: 12px;
+        padding: 15px;
+    }
+
+    /* Ensure typing effect supports wrapping on small screens if needed, 
+       though it's usually single line. Adjust tagline size. */
+    .cyber-header .tagline {
+        font-size: 12px;
+        letter-spacing: 2px;
+        white-space: normal;
+    }
+
+    .typing-effect {
+        /* On mobile, wrapping might be better than overflow hidden for long texts */
+        /* But typing effect relies on single line mostly. Keep as is or adjust font size */
+        font-size: 12px;
+        white-space: normal;
+        /* Allow wrap for long text */
+        border-right: none;
+        /* Remove cursor on wrap usually, or keep it at end */
+        animation: none;
+        /* Simplify animation on mobile if complex */
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 20px;
+    }
+
+    .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .project-links {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .cert-card {
+        flex-direction: column;
+        align-items: center;
+        /* Center logo */
+        text-align: center;
+    }
+
+    .cert-logo-container {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .cert-content {
+        width: 100%;
+    }
+
+    .cert-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .cert-icon {
+        display: none;
+        /* Hide external link icon on mobile card to simplify */
+    }
+
+    .cert-details {
+        align-items: center;
+        /* Center details */
+    }
+
+    .curriculum-list {
+        text-align: left;
+        /* Keep list left aligned for readability */
+        display: inline-block;
+    }
+}

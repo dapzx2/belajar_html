@@ -1,0 +1,675 @@
+/* STATE B - CYBERPUNK */
+body.state-b {
+    background: var(--bg-cyber);
+    font-family: var(--font-cyber);
+    color: var(--text-cyber);
+    background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+
+    /* Firefox Scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-neon) #050505;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent-neon);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transition: transform 0.1s ease, opacity 0.3s ease;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor.clicking {
+    transform: scale(0.8);
+    background: var(--accent-neon);
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-neon);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0.5;
+    transition: transform 0.15s ease;
+}
+
+.ripple {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 255, 204, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 99997;
+    animation: ripple-effect 0.6s ease-out forwards;
+}
+
+/* Cyberpunk Scrollbar Override - Works on HTML/Viewport if HTML has state-b */
+html.state-b ::-webkit-scrollbar-track,
+body.state-b ::-webkit-scrollbar-track {
+    background: #050505;
+    border-left: 1px solid #1a1a1a;
+}
+
+html.state-b ::-webkit-scrollbar-thumb,
+body.state-b ::-webkit-scrollbar-thumb {
+    background: var(--accent-neon);
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 0 10px var(--accent-neon);
+}
+
+html.state-b ::-webkit-scrollbar-thumb:hover,
+body.state-b ::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+    box-shadow: 0 0 15px var(--accent-neon), 0 0 5px #fff;
+}
+
+/* Firefox support for root */
+html.state-b,
+body.state-b {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-neon) #050505;
+}
+
+@keyframes grid-move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+body.state-b .retro-content {
+    display: none;
+}
+
+body.state-b .cyber-content {
+    display: block;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.3s;
+}
+
+/* GLITCH & ANIMATIONS */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ripple-effect {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+
+    100% {
+        width: 150px;
+        height: 150px;
+        opacity: 0;
+        margin-left: -75px;
+        margin-top: -75px;
+    }
+}
+
+.cyber-header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+}
+
+.cyber-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cyber-header h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-weight: bold;
+    color: var(--accent-neon);
+    text-shadow: 0 0 10px var(--accent-neon), 0 0 20px var(--accent-neon), 0 0 40px var(--accent-neon);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from {
+        text-shadow: 0 0 10px var(--accent-neon), 0 0 20px var(--accent-neon), 0 0 40px var(--accent-neon);
+    }
+
+    to {
+        text-shadow: 0 0 5px var(--accent-neon), 0 0 10px var(--accent-neon), 0 0 20px var(--accent-neon);
+    }
+}
+
+.cyber-header .tagline {
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.typing-effect {
+    overflow: hidden;
+    border-right: 2px solid var(--accent-neon);
+    white-space: nowrap;
+    animation: blink-caret 0.75s step-end infinite;
+    display: inline-block;
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--accent-neon);
+    }
+}
+
+.terminal-section {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.terminal {
+    background: #0d0d0d;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+}
+
+.terminal-header {
+    background: #1a1a1a;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.terminal-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-btn.red {
+    background: #ff5f56;
+}
+
+.terminal-btn.yellow {
+    background: #ffbd2e;
+}
+
+.terminal-btn.green {
+    background: #27ca40;
+}
+
+.terminal-title {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.terminal-body {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.terminal-body .prompt {
+    color: var(--accent-neon);
+}
+
+.terminal-body .command {
+    color: #fff;
+}
+
+.terminal-body .output {
+    color: #888;
+    margin-left: 20px;
+}
+
+.blink {
+    animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.projects-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    color: var(--accent-neon);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.section-title::before,
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0, 255, 204, 0.3);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(13, 13, 13, 0.8);
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-neon);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
+}
+
+.project-card:hover {
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.folder-icon {
+    color: var(--accent-neon);
+    font-size: 24px;
+}
+
+.project-links a {
+    color: #888;
+    margin-left: 15px;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.project-links a:hover {
+    color: var(--accent-neon);
+}
+
+.project-title {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.project-desc {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    min-height: 45px;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 12px;
+    color: #666;
+    font-family: var(--font-cyber);
+}
+
+/* SKILLS SECTION */
+.skills-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.skill-category h3 {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent-neon);
+}
+
+.skill-list {
+    list-style: none;
+}
+
+.skill-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.skill-item:hover {
+    background: rgba(0, 255, 204, 0.1);
+    transform: translateX(5px);
+}
+
+.skill-name {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.skill-level {
+    color: var(--accent-neon);
+    font-size: 12px;
+}
+
+/* CONTACT */
+.contact-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    text-align: center;
+}
+
+.contact-intro {
+    color: #888;
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.connect-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid var(--accent-neon);
+    color: var(--accent-neon);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+}
+
+.connect-btn:hover {
+    background: rgba(0, 255, 204, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+}
+
+/* FOOTER */
+.cyber-footer {
+    border-top: 1px solid #333;
+    padding: 40px 20px;
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.social-links a {
+    color: #888;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-neon);
+}
+
+/* Stabilize Scramble Elements */
+.cyber-header h1,
+.section-title,
+.project-title,
+.nav-link {
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+    will-change: contents;
+}
+
+/* Scroll Reveal Animation */
+.reveal-me {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-me.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Certificates */
+.certificates-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.cert-card {
+    background: rgba(17, 17, 17, 0.8);
+    border: 1px solid #333;
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.cert-card:hover {
+    border-color: var(--accent-neon);
+    background: rgba(17, 17, 17, 0.95);
+    transform: translateY(-5px);
+}
+
+.cert-logo-container {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+}
+
+.cert-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.cert-card:hover .cert-logo {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.cert-content {
+    flex: 1;
+}
+
+.cert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.cert-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.cert-icon {
+    color: #666;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.cert-card:hover .cert-icon {
+    color: var(--accent-neon);
+}
+
+.cert-publisher {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.cert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #222;
+}
+
+.cert-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 12px;
+}
+
+.meta-icon {
+    font-size: 14px;
+    width: 16px;
+    text-align: center;
+}
+
+.cert-id {
+    font-family: monospace;
+    color: #555;
+    letter-spacing: 0.5px;
+}
+
+.cert-curriculum {
+    margin-top: 5px;
+}
+
+.curriculum-title {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.curriculum-list {
+    list-style: none;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.curriculum-list li {
+    color: #666;
+    font-size: 12px;
+    padding-left: 12px;
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.curriculum-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent-neon);
+    font-family: monospace;
+    font-size: 12px;
+    top: 2px;
+}
+
+/* Canvas Matrix */
+#matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.15;
+}
