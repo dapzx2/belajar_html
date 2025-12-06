@@ -1,274 +1,24 @@
-// Minimal JavaScript for Portfolio
 function triggerTransformation() {
     const body = document.body;
     body.classList.add('glitching');
+
+    // Start typing effect
     const typingElement = document.querySelector('.typing');
     if (typingElement) {
         const text = typingElement.getAttribute('data-text') || './override.sh';
         typeText(typingElement, text, 50);
     }
+
     setTimeout(() => {
-        body.classList.remove('glitching', 'state-a');
+        body.classList.remove('glitching');
+        body.classList.remove('state-a');
         body.classList.add('state-b');
-        document.documentElement.classList.add('state-b');
         initMatrixRain();
         document.title = "Dava Ulus | Fullstack Developer & AI Enthusiast";
+
+        // Reset typing for next time
         if (typingElement) typingElement.textContent = '';
     }, 2500);
-}
-
-function typeText(element, text, speed) {
-    let i = 0; element.textContent = '';
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    type();
-}
-
-function initMatrixRain() {
-    const canvas = document.getElementById('matrix-rain');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const rainDrops = Array(Math.floor(columns)).fill(1);
-    const draw = () => {
-        ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0F0';
-        ctx.font = fontSize + 'px monospace';
-        for (let i = 0; i < rainDrops.length; i++) {
-            const text = chars.charAt(Math.floor(Math.random() * chars.length));
-            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-            if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) rainDrops[i] = 0;
-            rainDrops[i]++;
-        }
-    };
-    setInterval(draw, 30);
-    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-}
-
-let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-let konamiIndex = 0;
-document.addEventListener('keydown', (e) => {
-    if (e.key === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            document.body.classList.toggle('rainbow-mode');
-            konamiIndex = 0;
-        }
-    } else { konamiIndex = 0; }
-});
-
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-5px) scale(1.02)');
-    card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0) scale(1)');
-});
-
-class HackerScramble {
-    constructor(element) {
-        this.element = element;
-        this.originalText = element.textContent;
-        this.chars = '!<>-_/[]{}—=+*';
-        this.frameRequest = null;
-        this.frame = 0;
-        this.queue = [];
-        this.resolve = null;
-    }
-    setText(newText) {
-        const oldText = this.originalText;
-        const length = Math.max(oldText.length, newText.length);
-        const promise = new Promise((resolve) => this.resolve = resolve);
-        this.queue = [];
-        for (let i = 0; i < length; i++) {
-            const from = oldText[i] || '';
-            const to = newText[i] || '';
-            const start = Math.floor(Math.random() * 40);
-            const end = start + Math.floor(Math.random() * 40);
-            this.queue.push({ from, to, start, end });
-        }
-        cancelAnimationFrame(this.frameRequest);
-        this.frame = 0;
-        this.update();
-        return promise;
-    }
-    update() {
-        let output = '';
-        let complete = 0;
-        for (let i = 0, n = this.queue.length; i < n; i++) {
-            let { from, to, start, end, char } = this.queue[i];
-            if (this.frame >= end) {
-                complete++;
-                output += to;
-            } else if (this.frame >= start) {
-                if (!char || Math.random() < 0.28) {
-                    char = this.chars[Math.floor(Math.random() * this.chars.length)];
-                    this.queue[i].char = char;
-                }
-                output += `<span class="dud">${char}</span>`;
-            } else { output += from; }
-        }
-        this.element.innerHTML = output;
-        if (complete === this.queue.length) { this.resolve(); } else {
-            this.frameRequest = requestAnimationFrame(this.update.bind(this));
-            this.frame++;
-        }
-    }
-    scramble() {
-        const width = this.element.offsetWidth;
-        const height = this.element.offsetHeight;
-        this.element.style.display = 'inline-block';
-        this.element.style.width = `${width}px`;
-        this.element.style.height = `${height}px`;
-        this.setText(this.originalText).then(() => {
-            this.element.style.width = '';
-            this.element.style.height = '';
-        });
-    }
-}
-
-class Typewriter {
-    constructor(element, texts, typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000) {
-        this.element = element;
-        this.texts = texts;
-        this.typeSpeed = typeSpeed;
-        this.deleteSpeed = deleteSpeed;
-        this.pauseTime = pauseTime;
-        this.textIndex = 0;
-        this.charIndex = 0;
-        this.isDeleting = false;
-    }
-    type() {
-        const currentText = this.texts[this.textIndex];
-        if (this.isDeleting) {
-            this.element.textContent = currentText.substring(0, this.charIndex - 1);
-            this.charIndex--;
-        } else {
-            this.element.textContent = currentText.substring(0, this.charIndex + 1);
-            this.charIndex++;
-        }
-        let speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
-        if (!this.isDeleting && this.charIndex === currentText.length) {
-            speed = this.pauseTime;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.charIndex === 0) {
-            this.isDeleting = false;
-            this.textIndex = (this.textIndex + 1) % this.texts.length;
-            speed = 500;
-        }
-        setTimeout(() => this.type(), speed);
-    }
-    start() { this.type(); }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const typewriterElement = document.getElementById('typewriter');
-    if (typewriterElement) {
-        new Typewriter(typewriterElement, ['FULLSTACK DEVELOPER', 'AI ENTHUSIAST', 'WEB DEVELOPER', 'TECH LEARNER'], 80, 40, 2000).start();
-    }
-    const scrambleElements = document.querySelectorAll('.cyber-header h1, .section-title, .project-title, .nav-link');
-    scrambleElements.forEach(el => {
-        const scrambler = new HackerScramble(el);
-        el.addEventListener('mouseenter', () => {
-            if (document.body.classList.contains('state-b')) scrambler.scramble();
-        });
-    });
-
-    const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (isDesktop) {
-        document.querySelectorAll('.contact-link').forEach(magnet => {
-            magnet.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('state-b')) return;
-                const rect = magnet.getBoundingClientRect();
-                magnet.style.transform = `translate(${(e.clientX - rect.left - rect.width / 2) * 0.3}px, ${(e.clientY - rect.top - rect.height / 2) * 0.3}px) scale(1.1)`;
-                magnet.style.borderColor = 'var(--accent-neon)';
-                magnet.style.boxShadow = '0 0 15px var(--accent-neon)';
-            });
-            magnet.addEventListener('mouseleave', () => {
-                magnet.style.transform = 'translate(0, 0) scale(1)';
-                magnet.style.borderColor = '#333';
-                magnet.style.boxShadow = 'none';
-            });
-        });
-        const cursor = document.createElement('div'); cursor.className = 'custom-cursor'; cursor.style.display = 'none'; document.body.appendChild(cursor);
-        const trail = document.createElement('div'); trail.className = 'cursor-trail'; trail.style.display = 'none'; document.body.appendChild(trail);
-        setInterval(() => {
-            const isStateB = document.body.classList.contains('state-b');
-            cursor.style.display = isStateB ? 'block' : 'none';
-            trail.style.display = isStateB ? 'block' : 'none';
-        }, 100);
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX - 10 + 'px'; cursor.style.top = e.clientY - 10 + 'px';
-            setTimeout(() => { trail.style.left = e.clientX - 4 + 'px'; trail.style.top = e.clientY - 4 + 'px'; }, 50);
-        });
-        document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-        document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-        document.addEventListener('click', (e) => {
-            if (document.body.classList.contains('state-b')) createRipple(e.clientX, e.clientY);
-        });
-
-        const cards = document.querySelectorAll('.project-card, .skill-item');
-        cards.forEach(card => {
-            if (card.parentElement.classList.contains('tilt-wrapper')) return;
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('tilt-wrapper');
-            wrapper.style.display = 'inline-block'; wrapper.style.width = '100%'; wrapper.style.height = '100%'; wrapper.style.perspective = '1000px';
-            card.parentNode.insertBefore(wrapper, card);
-            wrapper.appendChild(card);
-            wrapper.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('state-b')) return;
-                const rect = wrapper.getBoundingClientRect();
-                const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -10;
-                const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 10;
-                requestAnimationFrame(() => {
-                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                    card.style.borderColor = 'var(--accent-neon)';
-                    card.style.boxShadow = `0 20px 50px rgba(0, 255, 204, 0.2), ${-rotateY}px ${rotateX}px 20px rgba(0, 255, 204, 0.1)`;
-                });
-            });
-            wrapper.addEventListener('mouseleave', () => {
-                card.style.transform = document.body.classList.contains('state-b') ? 'rotateX(0) rotateY(0)' : 'none';
-                if (document.body.classList.contains('state-b')) { card.style.borderColor = '#222'; card.style.boxShadow = 'none'; }
-            });
-        });
-    }
-
-    document.addEventListener('touchstart', (e) => {
-        if (document.body.classList.contains('state-b')) createRipple(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: true });
-
-    const revealElements = document.querySelectorAll('.project-card, .skill-item, .cert-card, .section-title');
-    revealElements.forEach(el => el.classList.add('reveal-me'));
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && document.body.classList.contains('state-b')) {
-                entry.target.classList.add('active');
-                if (['H1', 'H2', 'H3'].includes(entry.target.tagName) || entry.target.classList.contains('section-title') || entry.target.classList.contains('project-title')) {
-                    const scrambler = new HackerScramble(entry.target);
-                    if (!entry.target.dataset.scrambled) { scrambler.scramble(); entry.target.dataset.scrambled = "true"; }
-                }
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-    revealElements.forEach(el => observer.observe(el));
-    scrambleElements.forEach(el => observer.observe(el));
-});
-
-function createRipple(x, y) {
-    const ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    document.body.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
 }
 
 function typeText(element, text, speed) {
@@ -566,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 5. 3D Tilt Effect (Wrapper Method)
+        // 5. 3D Tilt Effect (Wrapper Method with Smoothing)
         const cards = document.querySelectorAll('.project-card, .skill-item');
         cards.forEach(card => {
             // Check if wrapper already exists (to prevent dupes if re-run)
@@ -582,8 +332,54 @@ document.addEventListener('DOMContentLoaded', () => {
             card.parentNode.insertBefore(wrapper, card);
             wrapper.appendChild(card);
 
-            wrapper.addEventListener('mousemove', (e) => {
+            // Smooth values (current state)
+            let currentX = 0, currentY = 0;
+            let targetX = 0, targetY = 0;
+            let isAnimating = false;
+            let animationId = null;
+
+            // GPU acceleration - NO CSS transition to avoid conflict with JS animation
+            card.style.willChange = 'transform';
+            card.style.backfaceVisibility = 'hidden';
+            card.style.transformStyle = 'preserve-3d';
+
+            // Ultra-smooth animation loop using lerp with lower factor
+            function animate() {
+                if (!isAnimating) {
+                    animationId = null;
+                    return;
+                }
+
+                // Lower lerp factor (0.06) for smoother, less jittery movement
+                currentX += (targetX - currentX) * 0.06;
+                currentY += (targetY - currentY) * 0.06;
+
+                // Only update if difference is significant (anti-micro-jitter)
+                const diffX = Math.abs(targetX - currentX);
+                const diffY = Math.abs(targetY - currentY);
+
+                if (diffX > 0.01 || diffY > 0.01) {
+                    // Round to 1 decimal for even more stability
+                    const rx = Math.round(currentX * 10) / 10;
+                    const ry = Math.round(currentY * 10) / 10;
+
+                    // Use translate3d(0,0,0) to force GPU layer
+                    card.style.transform = `translate3d(0,0,0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+                }
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            wrapper.addEventListener('mouseenter', () => {
                 if (!document.body.classList.contains('state-b')) return;
+                isAnimating = true;
+                card.style.borderColor = 'var(--accent-neon)';
+                card.style.boxShadow = '0 20px 50px rgba(0, 255, 204, 0.2)';
+                if (!animationId) animate();
+            });
+
+            wrapper.addEventListener('mousemove', (e) => {
+                if (!document.body.classList.contains('state-b') || !isAnimating) return;
 
                 const rect = wrapper.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -592,22 +388,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -10;
-                const rotateY = ((x - centerX) / centerX) * 10;
-
-                requestAnimationFrame(() => {
-                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                    card.style.borderColor = 'var(--accent-neon)';
-                    card.style.boxShadow = `0 20px 50px rgba(0, 255, 204, 0.2), ${-rotateY}px ${rotateX}px 20px rgba(0, 255, 204, 0.1)`;
-                });
+                // Moderate sensitivity (10deg) - balanced between dramatic and stable
+                targetX = ((y - centerY) / centerY) * -10;
+                targetY = ((x - centerX) / centerX) * 10;
             });
 
             wrapper.addEventListener('mouseleave', () => {
+                isAnimating = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+
+                // Smoothly return to zero
+                targetX = 0;
+                targetY = 0;
+                currentX = 0;
+                currentY = 0;
+
                 if (!document.body.classList.contains('state-b')) {
                     card.style.transform = 'none';
                     return;
                 }
-                card.style.transform = 'rotateX(0) rotateY(0)';
+                card.style.transform = 'translate3d(0,0,0) rotateX(0) rotateY(0)';
                 card.style.borderColor = '#222';
                 card.style.boxShadow = 'none';
             });
@@ -655,6 +458,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => observer.observe(el));
     scrambleElements.forEach(el => observer.observe(el)); // Add scramble targets to observer
+
+    // 8. Touch Tilt Effect (Mobile Only)
+    if (!isDesktop) {
+        const touchCards = document.querySelectorAll('.project-card, .skill-item');
+
+        touchCards.forEach(card => {
+            let isTouching = false;
+
+            card.addEventListener('touchstart', (e) => {
+                if (!document.body.classList.contains('state-b')) return;
+                isTouching = true;
+                card.style.transition = 'transform 0.1s ease-out';
+                card.style.borderColor = 'var(--accent-neon)';
+                card.style.boxShadow = '0 10px 30px rgba(0, 255, 204, 0.3)';
+            }, { passive: true });
+
+            card.addEventListener('touchmove', (e) => {
+                if (!isTouching || !document.body.classList.contains('state-b')) return;
+
+                const touch = e.touches[0];
+                const rect = card.getBoundingClientRect();
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            }, { passive: true });
+
+            card.addEventListener('touchend', () => {
+                isTouching = false;
+                card.style.transition = 'transform 0.3s ease-out, border-color 0.3s, box-shadow 0.3s';
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.borderColor = '#222';
+                card.style.boxShadow = 'none';
+            }, { passive: true });
+        });
+    }
 
 });
 
