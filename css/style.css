@@ -93,7 +93,7 @@ body {
     transition: background 0.5s ease;
     overflow-x: hidden;
     overflow-y: scroll;
-    
+
 }
 
 .dud {
@@ -440,13 +440,13 @@ body.state-b {
     background-size: 50px 50px;
     animation: grid-move 20s linear infinite;
 
-    
+
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 
-    
+
     scrollbar-width: thin;
     scrollbar-color: var(--accent-neon) #050505;
 }
@@ -779,12 +779,12 @@ body.state-b .cyber-content {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     align-items: stretch;
-    
+
 }
 
 .tilt-wrapper {
     display: grid !important;
-    
+
     height: 100% !important;
     min-height: 100% !important;
     align-items: stretch !important;
@@ -800,7 +800,7 @@ body.state-b .cyber-content {
     transition: all 0.3s ease;
     cursor: pointer;
     height: 100%;
-    
+
     display: flex;
     flex-direction: column;
 }
@@ -855,7 +855,7 @@ body.state-b .cyber-content {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     will-change: transform;
-    
+
     transition: transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -1005,7 +1005,7 @@ body.state-b .cyber-content {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     align-items: stretch;
-    
+
 }
 
 .skill-item {
@@ -1015,7 +1015,7 @@ body.state-b .cyber-content {
     border-radius: 8px;
     transition: all 0.3s ease;
     height: 100%;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1116,7 +1116,7 @@ body.state-b .skill-progress {
     height: 100%;
     z-index: -1;
     opacity: 0.15;
-    
+
 }
 
 @media (max-width: 768px) {
@@ -1124,7 +1124,7 @@ body.state-b .skill-progress {
         padding: 40px 15px 30px;
     }
 
-    
+
     .profile-photo-container {
         margin-bottom: 15px;
     }
@@ -1179,23 +1179,23 @@ body.state-b .skill-progress {
         gap: 18px;
     }
 
-    
+
     .tilt-wrapper {
         display: block !important;
         width: 100% !important;
         height: auto !important;
-        
+
     }
 
     .project-card {
         padding: 22px;
         height: auto;
-        
-        
+
+
         transition: transform 0.3s ease-out, border-color 0.3s, box-shadow 0.3s;
     }
 
-    
+
     .project-card:active {
         box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
     }
@@ -1263,12 +1263,12 @@ body.state-b .skill-progress {
     .skill-item {
         padding: 15px;
         height: auto;
-        
-        
+
+
         transition: transform 0.3s ease-out, border-color 0.3s, box-shadow 0.3s;
     }
 
-    
+
     .skill-item:active {
         background: rgba(0, 255, 204, 0.1);
     }
@@ -1298,7 +1298,7 @@ body.state-b .skill-progress {
         padding: 14px 24px;
     }
 
-    
+
     .contact-link:active {
         transform: scale(0.95);
         background: rgba(0, 255, 204, 0.1);
@@ -1309,7 +1309,7 @@ body.state-b .skill-progress {
         font-size: 13px;
     }
 
-    
+
     .glitch-terminal-body {
         font-size: 13px;
         padding: 18px;
@@ -1319,7 +1319,7 @@ body.state-b .skill-progress {
         font-size: 11px;
     }
 
-    
+
     .retro-content h1 {
         font-size: clamp(22px, 6vw, 32px);
     }
@@ -1333,7 +1333,7 @@ body.state-b .skill-progress {
         padding: 14px 30px;
     }
 
-    
+
     .retro-btn:active {
         transform: scale(0.95);
         background: #b0b0b0;
@@ -1344,7 +1344,7 @@ body.state-b .skill-progress {
         padding: 14px 18px;
     }
 
-    
+
     .retro-content details summary:active {
         background: #d8d8d8;
     }
@@ -1367,11 +1367,6 @@ body.state-b .skill-progress {
         font-size: 11px;
         padding: 15px;
         line-height: 1.6;
-        overflow-x: auto;
-    }
-
-    .terminal-body p {
-        white-space: nowrap;
     }
 
     .terminal-body .output {
