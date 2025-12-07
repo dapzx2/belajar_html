@@ -126,7 +126,6 @@ class HackerScramble {
     }
 
     update() {
-
         let output = '';
         let complete = 0;
 
@@ -242,18 +241,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isDesktop) {
         const magnets = document.querySelectorAll('.contact-link');
         magnets.forEach(magnet => {
-            magnet.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('state-b')) return;
-                const rect = magnet.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
+            magnet.style.transition = 'transform 0.2s ease-out, border-color 0.2s ease, box-shadow 0.2s ease';
 
-                magnet.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.1)`;
+            let originalRect = null;
+
+            magnet.addEventListener('mouseenter', () => {
+                if (!document.body.classList.contains('state-b')) return;
+                originalRect = magnet.getBoundingClientRect();
+            });
+
+            magnet.addEventListener('mousemove', (e) => {
+                if (!document.body.classList.contains('state-b') || !originalRect) return;
+
+                const x = e.clientX - originalRect.left - originalRect.width / 2;
+                const y = e.clientY - originalRect.top - originalRect.height / 2;
+
+                const maxMove = 10;
+                const moveX = Math.max(-maxMove, Math.min(maxMove, x * 0.15));
+                const moveY = Math.max(-maxMove, Math.min(maxMove, y * 0.15));
+
+                magnet.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
                 magnet.style.borderColor = 'var(--accent-neon)';
                 magnet.style.boxShadow = '0 0 15px var(--accent-neon)';
             });
 
             magnet.addEventListener('mouseleave', () => {
+                originalRect = null;
                 magnet.style.transform = 'translate(0, 0) scale(1)';
                 magnet.style.borderColor = '#333';
                 magnet.style.boxShadow = 'none';
@@ -314,45 +327,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let currentX = 0, currentY = 0;
             let targetX = 0, targetY = 0;
-            let isAnimating = false;
             let animationId = null;
+            let isHovering = false;
 
             card.style.willChange = 'transform';
             card.style.backfaceVisibility = 'hidden';
             card.style.transformStyle = 'preserve-3d';
+            card.style.pointerEvents = 'none';
 
             function animate() {
-                if (!isAnimating) {
-                    animationId = null;
-                    return;
-                }
+                currentX += (targetX - currentX) * 0.08;
+                currentY += (targetY - currentY) * 0.08;
 
-                currentX += (targetX - currentX) * 0.06;
-                currentY += (targetY - currentY) * 0.06;
+                const rx = Math.round(currentX * 100) / 100;
+                const ry = Math.round(currentY * 100) / 100;
+
+                card.style.transform = `translate3d(0,0,0) rotateX(${rx}deg) rotateY(${ry}deg)`;
 
                 const diffX = Math.abs(targetX - currentX);
                 const diffY = Math.abs(targetY - currentY);
 
-                if (diffX > 0.01 || diffY > 0.01) {
-                    const rx = Math.round(currentX * 10) / 10;
-                    const ry = Math.round(currentY * 10) / 10;
-
-                    card.style.transform = `translate3d(0,0,0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+                if (diffX > 0.01 || diffY > 0.01 || isHovering) {
+                    animationId = requestAnimationFrame(animate);
+                } else {
+                    animationId = null;
+                    card.style.transform = 'translate3d(0,0,0) rotateX(0) rotateY(0)';
                 }
+            }
 
-                animationId = requestAnimationFrame(animate);
+            function startAnimation() {
+                if (!animationId) {
+                    animationId = requestAnimationFrame(animate);
+                }
             }
 
             wrapper.addEventListener('mouseenter', () => {
                 if (!document.body.classList.contains('state-b')) return;
-                isAnimating = true;
+                isHovering = true;
                 card.style.borderColor = 'var(--accent-neon)';
                 card.style.boxShadow = '0 20px 50px rgba(0, 255, 204, 0.2)';
-                if (!animationId) animate();
+                startAnimation();
             });
 
             wrapper.addEventListener('mousemove', (e) => {
-                if (!document.body.classList.contains('state-b') || !isAnimating) return;
+                if (!document.body.classList.contains('state-b') || !isHovering) return;
 
                 const rect = wrapper.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -361,29 +379,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                targetX = ((y - centerY) / centerY) * -10;
-                targetY = ((x - centerX) / centerX) * 10;
+                const percentX = (x - centerX) / centerX;
+                const percentY = (y - centerY) / centerY;
+
+                targetX = Math.max(-6, Math.min(6, percentY * -6));
+                targetY = Math.max(-6, Math.min(6, percentX * 6));
             });
 
             wrapper.addEventListener('mouseleave', () => {
-                isAnimating = false;
-                if (animationId) {
-                    cancelAnimationFrame(animationId);
-                    animationId = null;
-                }
-
+                isHovering = false;
                 targetX = 0;
                 targetY = 0;
-                currentX = 0;
-                currentY = 0;
 
                 if (!document.body.classList.contains('state-b')) {
                     card.style.transform = 'none';
                     return;
                 }
-                card.style.transform = 'translate3d(0,0,0) rotateX(0) rotateY(0)';
+
                 card.style.borderColor = '#222';
                 card.style.boxShadow = 'none';
+                startAnimation();
             });
         });
     }
@@ -489,7 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, { passive: true });
         });
     }
-
 });
 
 function createRipple(x, y) {
